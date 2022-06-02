@@ -1,0 +1,65 @@
+﻿@model CarWash.Database.Models.Brand
+
+@{
+    ViewData["Title"] = Model.Name + " edit";
+}
+
+<h1>Edit</h1>
+
+<h4>@Model.Name</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Car Models | @Html.ActionLink("Add new car", "Edit", new { /*id=item.BrandId*/ })
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var car in Model.Cars)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayTextFor(model => car.Model)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", "Cars", new { id=car.CarId }) |
+                                    @Html.ActionLink("Details", "Details", "Cars" , new { id=car.CarId }) |
+                                    @Html.ActionLink("Delete", "Delete", "Cars", new { id=car.CarId })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

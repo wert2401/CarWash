@@ -1,0 +1,41 @@
+﻿@model CarWash.Database.Models.Brand
+
+@{
+    ViewData["Title"] = Model.Name + " details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Brand</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BrandId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BrandId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Cars")
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var car in Model.Cars)
+            {
+                <p>
+                    @Html.DisplayTextFor(carModel => car.Model)
+                </p>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BrandId }) |
+    <a asp-action="Index">Back to List</a>
+</div>
