@@ -4,18 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarWash.MVC.Controllers
 {
-    public class BrandsController : Controller
+    public class BrandsController : BaseController<IRepository<Brand>, Brand>
     {
-        private readonly IRepository<Brand> repository;
-
-        public BrandsController(IRepository<Brand> repository)
+        public BrandsController(IRepository<Brand> brandRepository) : base(brandRepository)
         {
-            this.repository = repository;
         }
+
         public IActionResult Index()
         {
-            return View(repository.GetAll());
+            return View(baseRepository.GetAll());
         }
+
         public IActionResult Create()
         {
             return View();
@@ -23,31 +22,33 @@ namespace CarWash.MVC.Controllers
         [HttpPost]
         public IActionResult Create(Brand brand)
         {
-            repository.Add(brand);
-            return RedirectToAction("Index");
+            return AddAndRedirectToAction(brand, RedirectToAction("Index"));
         }
+
         public IActionResult Details(int id)
         {
-            return View(repository.Get(id));
+            return GetAndOpen(id);
         }
 
         public IActionResult Edit(int id)
         {
-            return View(repository.Get(id));
+            return GetAndOpen(id);
         }
 
         [HttpPost]
         public IActionResult Edit(int id, Brand brand)
         {
-            brand.BrandId = id;
-            repository.Update(brand);
-            return RedirectToAction("Index");
+            return UpdateAndRedirectToAction(id, brand, RedirectToAction("Index"));
         }
 
         public IActionResult Delete(int id)
         {
-            repository.Remove(repository.Get(id));
-            return RedirectToAction("Index");
+            return RemoveAndRedirectToAction(id, RedirectToAction("Index"));
+        }
+
+        protected override void UpdateFieldsOfEntity(Brand newEntity, ref Brand oldEntity)
+        {
+            oldEntity.Name = newEntity.Name;
         }
     }
 }

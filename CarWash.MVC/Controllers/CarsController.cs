@@ -6,15 +6,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarWash.MVC.Controllers
 {
-    public class CarsController : Controller
+    public class CarsController : BaseController<IRepository<Car>, Car>
     {
-        private readonly IRepository<Car> carRepository;
         private readonly IRepository<Brand> brandRepository;
-        private ICollection<Brand> brands;
+        private readonly ICollection<Brand> brands;
 
-        public CarsController(IRepository<Car> carRepository, IRepository<Brand> brandRepository)
+        public CarsController(IRepository<Car> carRepository, IRepository<Brand> brandRepository) : base(carRepository)
         {
-            this.carRepository = carRepository;
             this.brandRepository = brandRepository;
             brands = brandRepository.GetAll();
         }
@@ -34,37 +32,34 @@ namespace CarWash.MVC.Controllers
         public IActionResult Create(CarCreateViewModel viewModel)
         {
             Car carToAdd = viewModel.Car;
-            carRepository.Add(carToAdd);
 
-            return RedirectToAction("Details", "Brands", new { id = viewModel.Car.BrandId });
+            return AddAndRedirectToAction(carToAdd, RedirectToAction("Details", "Brands", new { id = viewModel.Car.BrandId }));
         }
 
         public IActionResult Details(int id)
         {
-            return View(carRepository.Get(id));
+            return GetAndOpen(id);
         }
 
         public IActionResult Delete(int id)
         {
-            carRepository.Remove(carRepository.Get(id));
-            return Redirect(Request.Headers["Referer"].ToString());
+            return RemoveAndRedirectToAction(id, Redirect(Request.Headers["Referer"].ToString()));
         }
 
         public IActionResult Edit(int id)
         {
-            return View(carRepository.Get(id));
+            return GetAndOpen(id);
         }
 
         [HttpPost]
         public IActionResult Edit(int id, Car car)
         {
-            Car carToUpdate = carRepository.Get(id);
+            return UpdateAndRedirectToAction(id, car, (car) => RedirectToAction("Edit", "Brands", new { id = car.BrandId}));
+        }
 
-            carToUpdate.Model = car.Model;
-
-            carRepository.Update(carToUpdate);
-
-            return RedirectToAction("Edit", "Brands", new { id = carToUpdate.BrandId });
+        protected override void UpdateFieldsOfEntity(Car newEntity, ref Car oldEntity)
+        {
+            oldEntity.Model = newEntity.Model;
         }
     }
 }

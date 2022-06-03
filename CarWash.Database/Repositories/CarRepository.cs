@@ -26,9 +26,10 @@ namespace CarWash.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public Car Get(int id)
+        public Car? Get(int id)
         {
-            return context.Cars.Where(e => e.CarId == id).First();
+            var results = context.Cars.Where(e => e.CarId == id);
+            return results.Any() ? results.First() : null;
         }
 
         public ICollection<Car> GetAll()

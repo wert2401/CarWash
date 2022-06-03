@@ -11,7 +11,7 @@ namespace CarWash.Database.Repositories
         public void Add(T entity);
         public void Remove(T entity);
         public void Update(T entity);
-        public T Get(int id);
+        public T? Get(int id);
         public ICollection<T> GetAll();
         public ICollection<T> FindAll();
 
