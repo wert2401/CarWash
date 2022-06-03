@@ -1,46 +1,70 @@
 ﻿using CarWash.Database.Models;
 using CarWash.Database.Repositories;
+using CarWash.MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarWash.MVC.Controllers
 {
     public class CarsController : Controller
     {
-        private readonly IRepository<Car> repository;
+        private readonly IRepository<Car> carRepository;
+        private readonly IRepository<Brand> brandRepository;
+        private ICollection<Brand> brands;
 
-        public CarsController(IRepository<Car> repository)
+        public CarsController(IRepository<Car> carRepository, IRepository<Brand> brandRepository)
         {
-            this.repository = repository;
+            this.carRepository = carRepository;
+            this.brandRepository = brandRepository;
+            brands = brandRepository.GetAll();
+        }
+
+        public IActionResult Create()
+        {
+            CarCreateViewModel viewModel = new CarCreateViewModel();
+
+            SelectList brandsSL = new SelectList(brands, "BrandId", "Name", viewModel.Car.BrandId);
+
+            viewModel.BrandsSelectList = brandsSL;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(CarCreateViewModel viewModel)
+        {
+            Car carToAdd = viewModel.Car;
+            carRepository.Add(carToAdd);
+
+            return RedirectToAction("Details", "Brands", new { id = viewModel.Car.BrandId });
         }
 
         public IActionResult Details(int id)
         {
-            return View(repository.Get(id));
+            return View(carRepository.Get(id));
         }
 
         public IActionResult Delete(int id)
         {
-            repository.Remove(repository.Get(id));
-            return Redirect(Request.PathBase);
+            carRepository.Remove(carRepository.Get(id));
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult Edit(int id)
         {
-            return View(repository.Get(id));
+            return View(carRepository.Get(id));
         }
 
         [HttpPost]
         public IActionResult Edit(int id, Car car)
         {
-            Car carOld = repository.Get(id);
+            Car carToUpdate = carRepository.Get(id);
 
-            car.CarId = carOld.CarId;
-            car.BrandId = carOld.BrandId;
-            car.Brand = carOld.Brand;
+            carToUpdate.Model = car.Model;
 
-            repository.Update(car);
+            carRepository.Update(carToUpdate);
 
-            return RedirectToAction("Details", "Brands", new { id = car.BrandId });
+            return RedirectToAction("Edit", "Brands", new { id = carToUpdate.BrandId });
         }
     }
 }
