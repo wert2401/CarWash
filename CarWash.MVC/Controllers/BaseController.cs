@@ -8,7 +8,7 @@ namespace CarWash.MVC.Controllers
     public abstract class BaseController<T> : Controller where T : IModel
     {
         /// <summary>
-        /// In realization of this method it needed to set fields of oldEntity to fields of newEntity exlusive its id.
+        /// In realization of this method it needed to set fields of oldEntity to values of newEntity exlusive its id.
         /// It is used in UpdateAndRedirectToAction.
         /// </summary>
         protected abstract void UpdateFieldsOfEntity(T newEntity, ref T oldEntity);

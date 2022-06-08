@@ -13,7 +13,7 @@ namespace CarWash.Database
 
             modelBuilder.Entity<Car>().Navigation(c => c.Brand).AutoInclude();
 
-            modelBuilder.Entity<Customer>().Navigation(c => c.CustomerCars).AutoInclude();
+            //modelBuilder.Entity<Customer>().Navigation(c => c.CustomerCars).AutoInclude();
 
             modelBuilder.Entity<CustomerCar>().Navigation(c => c.Car).AutoInclude();
             modelBuilder.Entity<CustomerCar>().Navigation(c => c.Customer).AutoInclude();
