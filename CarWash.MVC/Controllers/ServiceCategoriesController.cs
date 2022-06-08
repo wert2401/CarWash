@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarWash.MVC.Controllers
 {
-    public class BrandsController : BaseController<Brand>
+    public class ServiceCategoriesController : BaseController<ServiceCategory>
     {
-        public BrandsController(IRepositoriesHolder repositoriesHolder) : base(repositoriesHolder.BrandRepository)
+        public ServiceCategoriesController(IRepositoriesHolder repositoriesHolder) : base(repositoriesHolder.ServiceCategoryRepository)
         {
         }
 
@@ -20,9 +20,9 @@ namespace CarWash.MVC.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Brand brand)
+        public IActionResult Create(ServiceCategory serviceCategory)
         {
-            return AddAndRedirectToAction(brand, RedirectToAction("Index"));
+            return AddAndRedirectToAction(serviceCategory, RedirectToAction("Index"));
         }
 
         public IActionResult Details(int id)
@@ -36,9 +36,9 @@ namespace CarWash.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, Brand brand)
+        public IActionResult Edit(int id, ServiceCategory serviceCategory)
         {
-            return UpdateAndRedirectToAction(id, brand, RedirectToAction("Index"));
+            return UpdateAndRedirectToAction(id, serviceCategory, RedirectToAction("Index"));
         }
 
         public IActionResult Delete(int id)
@@ -46,7 +46,7 @@ namespace CarWash.MVC.Controllers
             return RemoveAndRedirectToAction(id, RedirectToAction("Index"));
         }
 
-        protected override void UpdateFieldsOfEntity(Brand newEntity, ref Brand oldEntity)
+        protected override void UpdateFieldsOfEntity(ServiceCategory newEntity, ref ServiceCategory oldEntity)
         {
             oldEntity.Name = newEntity.Name;
         }

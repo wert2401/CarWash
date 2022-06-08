@@ -1,10 +1,5 @@
 ﻿using CarWash.Database.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarWash.Database
 {
@@ -31,7 +26,7 @@ namespace CarWash.Database
             modelBuilder.Entity<Order>().Navigation(o => o.Employee).AutoInclude();
 
             modelBuilder.Entity<Service>().Navigation(s => s.ServiceCategory).AutoInclude();
-            modelBuilder.Entity<Service>().Navigation(s => s.Orders).AutoInclude();
+            //modelBuilder.Entity<Service>().Navigation(s => s.Orders).AutoInclude();
 
             modelBuilder.Entity<ServiceCategory>().Navigation(s => s.Services).AutoInclude();
 
@@ -44,6 +39,13 @@ namespace CarWash.Database
                 new Car { CarId = 2, Model = "Corolla", BrandId = 1 },
                 new Car { CarId = 3, Model = "Granta", BrandId = 2 });
 
+            modelBuilder.Entity<ServiceCategory>().HasData(
+                new ServiceCategory { ServiceCategoryId = 1, Name = "Clean" },
+                new ServiceCategory { ServiceCategoryId = 2, Name = "Wash" });
+
+            modelBuilder.Entity<Service>().HasData(
+                new Service { ServiceId = 1, ServiceCategoryId = 1, Name = "Clean dirt" },
+                new Service { ServiceId = 2, ServiceCategoryId = 2, Name = "Wash dirt" });
         }
 
         public DbSet<Brand> Brands { get; set; }

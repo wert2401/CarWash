@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarWash.Database.Models.Intefaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarWash.Database.Models
 {
-    public class Order
+    public class Order : IModel
     {
         public int OrderId { get; set; }
         public int ServiceId { get; set; }
@@ -19,5 +15,9 @@ namespace CarWash.Database.Models
         public int Status { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+
+        [NotMapped]
+        public int Id { get => OrderId; }
     }
 }

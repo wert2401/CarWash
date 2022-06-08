@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarWash.Database.Models.Intefaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarWash.Database.Models
 {
-    public class CustomerCar
+    public class CustomerCar : IModel
     {
         public int CustomerCarId { get; set; }
         public int CarId { get; set; }
@@ -18,6 +14,9 @@ namespace CarWash.Database.Models
         public string Number { get; set; }
         public string? Image { get; set; }
         public ICollection<Order> Orders { get; set; }
+
+        [NotMapped]
+        public int Id { get => CustomerCarId; }
 
     }
 }

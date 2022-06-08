@@ -1,27 +1,29 @@
-﻿using CarWash.Database.Repositories;
+﻿using CarWash.Database.Models.Intefaces;
+using CarWash.Database.Repositories.Interfaces;
+using CarWash.MVC.ViewModels.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarWash.MVC.Controllers
 {
-    public abstract class BaseController<T, M> : Controller where T : IRepository<M>
+    public abstract class BaseController<T> : Controller where T : IModel
     {
         /// <summary>
         /// In realization of this method it needed to set fields of oldEntity to fields of newEntity exlusive its id.
-        /// It is used in TryUpdateAndRedirectToAction.
+        /// It is used in UpdateAndRedirectToAction.
         /// </summary>
-        protected abstract void UpdateFieldsOfEntity(M newEntity, ref M oldEntity);
-        public delegate IActionResult RedirectUsingNewEntity(M enttity);
+        protected abstract void UpdateFieldsOfEntity(T newEntity, ref T oldEntity);
+        public delegate IActionResult RedirectUsingNewEntity(T enttity);
 
-        protected T baseRepository;
+        protected IRepository<T> baseRepository;
 
-        public BaseController(T repository)
+        public BaseController(IRepository<T> repository)
         {
             baseRepository = repository;
         }
 
         protected IActionResult GetAndOpen(int id)
         {
-            M? entity = baseRepository.Get(id);
+            T? entity = baseRepository.Get(id);
 
             if (entity == null)
                 return NotFound();
@@ -29,9 +31,21 @@ namespace CarWash.MVC.Controllers
             return View(entity);
         }
 
-        protected IActionResult UpdateAndRedirectToAction(int id, M newEntity, IActionResult redirect)
+        protected IActionResult GetAndOpen(int id, IViewModel<T> viewModel)
         {
-            M? entity = baseRepository.Get(id);
+            T? entity = baseRepository.Get(id);
+
+            if (entity == null)
+                return NotFound();
+
+            viewModel.Entity = entity;
+
+            return View(viewModel);
+        }
+
+        protected IActionResult UpdateAndRedirectToAction(int id, T newEntity, IActionResult redirect)
+        {
+            T? entity = baseRepository.Get(id);
 
             if (entity == null)
                 return NotFound();
@@ -43,9 +57,9 @@ namespace CarWash.MVC.Controllers
             return redirect;
         }
 
-        protected IActionResult UpdateAndRedirectToAction(int id, M newEntity, RedirectUsingNewEntity redirect)
+        protected IActionResult UpdateAndRedirectToAction(int id, T newEntity, RedirectUsingNewEntity redirect)
         {
-            M? entity = baseRepository.Get(id);
+            T? entity = baseRepository.Get(id);
 
             if (entity == null)
                 return NotFound();
@@ -59,7 +73,7 @@ namespace CarWash.MVC.Controllers
 
         protected IActionResult RemoveAndRedirectToAction(int id, IActionResult redirect)
         {
-            M? entity = baseRepository.Get(id);
+            T? entity = baseRepository.Get(id);
 
             if (entity == null)
                 return NotFound();
@@ -71,7 +85,7 @@ namespace CarWash.MVC.Controllers
 
         protected IActionResult RemoveAndRedirectToAction(int id, RedirectUsingNewEntity redirect)
         {
-            M? entity = baseRepository.Get(id);
+            T? entity = baseRepository.Get(id);
 
             if (entity == null)
                 return NotFound();
@@ -81,13 +95,13 @@ namespace CarWash.MVC.Controllers
             return redirect(entity);
         }
 
-        protected IActionResult AddAndRedirectToAction(M entity, IActionResult redirect)
+        protected IActionResult AddAndRedirectToAction(T entity, IActionResult redirect)
         {
             baseRepository.Add(entity);
             return redirect;
         }
 
-        protected IActionResult AddAndRedirectToAction(M entity, RedirectUsingNewEntity redirect)
+        protected IActionResult AddAndRedirectToAction(T entity, RedirectUsingNewEntity redirect)
         {
             baseRepository.Add(entity);
             return redirect(entity);

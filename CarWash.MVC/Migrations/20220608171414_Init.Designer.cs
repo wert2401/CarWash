@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarWash.MVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220602112008_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220608171414_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -232,6 +232,24 @@ namespace CarWash.MVC.Migrations
                     b.HasIndex("ServiceCategoryId");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            ServiceId = 1,
+                            Duration = 0,
+                            Name = "Clean dirt",
+                            Price = 0,
+                            ServiceCategoryId = 1
+                        },
+                        new
+                        {
+                            ServiceId = 2,
+                            Duration = 0,
+                            Name = "Wash dirt",
+                            Price = 0,
+                            ServiceCategoryId = 2
+                        });
                 });
 
             modelBuilder.Entity("CarWash.Database.Models.ServiceCategory", b =>
@@ -247,6 +265,18 @@ namespace CarWash.MVC.Migrations
                     b.HasKey("ServiceCategoryId");
 
                     b.ToTable("ServiceCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            ServiceCategoryId = 1,
+                            Name = "Clean"
+                        },
+                        new
+                        {
+                            ServiceCategoryId = 2,
+                            Name = "Wash"
+                        });
                 });
 
             modelBuilder.Entity("CarWash.Database.Models.Car", b =>

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarWash.Database.Models.Intefaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarWash.Database.Models
 {
-    public class Brand
+    public class Brand : IModel
     {
         public int BrandId { get; set; }
         public string Name { get; set; }
         public ICollection<Car> Cars { get; set; }
+
+        [NotMapped]
+        public int Id { get => BrandId; }
     }
 }

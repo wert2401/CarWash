@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarWash.MVC.ViewModels
 {
-    public class CarCreateViewModel : IViewModel<Car>
+    public class ServiceCreateViewModel : IViewModel<Service>
     {
-        public Car Entity { get; set; } = new Car();
+        public Service Entity { get; set; } = new Service();
         public SelectList SelectListItems { get; set; }
     }
 }

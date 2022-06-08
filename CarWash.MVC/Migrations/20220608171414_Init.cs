@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarWash.MVC.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -96,9 +96,9 @@ namespace CarWash.MVC.Migrations
                     ServiceId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ServiceCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     Duration = table.Column<int>(type: "INTEGER", nullable: false),
-                    Price = table.Column<int>(type: "INTEGER", nullable: false)
+                    Price = table.Column<int>(type: "INTEGER", nullable: false),
+                    ServiceCategoryId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,6 +187,16 @@ namespace CarWash.MVC.Migrations
                 values: new object[] { 2, "Lada" });
 
             migrationBuilder.InsertData(
+                table: "ServiceCategories",
+                columns: new[] { "ServiceCategoryId", "Name" },
+                values: new object[] { 1, "Clean" });
+
+            migrationBuilder.InsertData(
+                table: "ServiceCategories",
+                columns: new[] { "ServiceCategoryId", "Name" },
+                values: new object[] { 2, "Wash" });
+
+            migrationBuilder.InsertData(
                 table: "Cars",
                 columns: new[] { "CarId", "BrandId", "Model" },
                 values: new object[] { 1, 1, "Camry" });
@@ -200,6 +210,16 @@ namespace CarWash.MVC.Migrations
                 table: "Cars",
                 columns: new[] { "CarId", "BrandId", "Model" },
                 values: new object[] { 3, 2, "Granta" });
+
+            migrationBuilder.InsertData(
+                table: "Services",
+                columns: new[] { "ServiceId", "Duration", "Name", "Price", "ServiceCategoryId" },
+                values: new object[] { 1, 0, "Clean dirt", 0, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Services",
+                columns: new[] { "ServiceId", "Duration", "Name", "Price", "ServiceCategoryId" },
+                values: new object[] { 2, 0, "Wash dirt", 0, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_BrandId",

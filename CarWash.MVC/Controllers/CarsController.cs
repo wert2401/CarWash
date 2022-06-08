@@ -1,29 +1,27 @@
 ﻿using CarWash.Database.Models;
-using CarWash.Database.Repositories;
+using CarWash.Database.Repositories.Interfaces;
 using CarWash.MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarWash.MVC.Controllers
 {
-    public class CarsController : BaseController<IRepository<Car>, Car>
+    public class CarsController : BaseController<Car>
     {
-        private readonly IRepository<Brand> brandRepository;
         private readonly ICollection<Brand> brands;
 
-        public CarsController(IRepository<Car> carRepository, IRepository<Brand> brandRepository) : base(carRepository)
+        public CarsController(IRepositoriesHolder repositoriesHolder) : base(repositoriesHolder.CarRepository)
         {
-            this.brandRepository = brandRepository;
-            brands = brandRepository.GetAll();
+            brands = repositoriesHolder.BrandRepository.GetAll();
         }
 
         public IActionResult Create()
         {
             CarCreateViewModel viewModel = new CarCreateViewModel();
 
-            SelectList brandsSL = new SelectList(brands, "BrandId", "Name", viewModel.Car.BrandId);
+            SelectList brandsSL = new SelectList(brands, "BrandId", "Name", viewModel.Entity.BrandId);
 
-            viewModel.BrandsSelectList = brandsSL;
+            viewModel.SelectListItems = brandsSL;
 
             return View(viewModel);
         }
@@ -31,9 +29,9 @@ namespace CarWash.MVC.Controllers
         [HttpPost]
         public IActionResult Create(CarCreateViewModel viewModel)
         {
-            Car carToAdd = viewModel.Car;
+            Car carToAdd = viewModel.Entity;
 
-            return AddAndRedirectToAction(carToAdd, RedirectToAction("Details", "Brands", new { id = viewModel.Car.BrandId }));
+            return AddAndRedirectToAction(carToAdd, RedirectToAction("Details", "Brands", new { id = viewModel.Entity.BrandId }));
         }
 
         public IActionResult Details(int id)
