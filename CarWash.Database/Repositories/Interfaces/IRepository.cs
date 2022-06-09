@@ -13,7 +13,7 @@ namespace CarWash.Database.Repositories.Interfaces
         public void Update(T entity);
         public T? Get(int id);
         public ICollection<T> GetAll();
-        public ICollection<T> FindAll();
+        public ICollection<T> FindAll(ISearchParameters searchParameters);
 
     }
 }

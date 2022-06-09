@@ -1,0 +1,52 @@
+﻿@model CarWash.Database.Repositories.SearchParameters.CustomerSearchParameters
+
+<form asp-action="Index" method="post" class="form-inline">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Patronymic" class="control-label"></label>
+        <input asp-for="Patronymic" class="form-control" />
+        <span asp-validation-for="Patronymic" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Sex" class="control-label"></label>
+        @*<input asp-for="Sex" class="form-control" />*@
+        @Html.DropDownListFor(m => Model.Sex,
+        new SelectList(new [] {
+        new { Value = "", Text = "" },
+        new { Value = "false", Text = "Male" },
+        new { Value = "true", Text = "Female" }},
+        "Value", "Text"),
+        new {@class="form-control"})
+        <span asp-validation-for="Sex" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsSendNotify" class="control-label"></label>
+        @*<input asp-for="IsSendNotify" class="form-control" />*@
+        @Html.DropDownListFor(m => Model.IsSendNotify,
+        new SelectList(new [] {
+        new { Value = "", Text = "" },
+        new { Value = "false", Text = "False" },
+        new { Value = "true", Text = "True" }},
+        "Value", "Text"),
+        new {@class="form-control"})
+        <span asp-validation-for="IsSendNotify" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>

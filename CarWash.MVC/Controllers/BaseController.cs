@@ -31,6 +31,15 @@ namespace CarWash.MVC.Controllers
             return View(entity);
         }
 
+        protected IActionResult FindAndOpen(ISearchViewModel<T> searchViewModel)
+        {
+            ICollection<T> entities = baseRepository.FindAll(searchViewModel.SearchParameters);
+
+            searchViewModel.Entities = entities;
+
+            return View(searchViewModel);
+        }
+
         protected IActionResult GetAndOpen(int id, IViewModel<T> viewModel)
         {
             T? entity = baseRepository.Get(id);

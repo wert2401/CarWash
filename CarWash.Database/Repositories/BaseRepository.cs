@@ -21,7 +21,7 @@ namespace CarWash.Database.Repositories
             context.SaveChanges();
         }
 
-        public virtual ICollection<T> FindAll()
+        public virtual ICollection<T> FindAll(ISearchParameters searchParameters)
         {
             throw new NotImplementedException();
         }

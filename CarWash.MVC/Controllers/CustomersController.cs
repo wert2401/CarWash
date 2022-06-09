@@ -1,5 +1,7 @@
 ﻿using CarWash.Database.Models;
 using CarWash.Database.Repositories.Interfaces;
+using CarWash.Database.Repositories.SearchParameters;
+using CarWash.MVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +15,18 @@ namespace CarWash.MVC.Controllers
 
         public IActionResult Index()
         {
-            return View(baseRepository.GetAll());
+            CustomerIndexViewModel viewModel = new CustomerIndexViewModel();
+            viewModel.Entities = baseRepository.GetAll();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Index(CustomerSearchParameters customerSearchParameters)
+        {
+            CustomerIndexViewModel viewModel = new CustomerIndexViewModel();
+            viewModel.SearchParameters = customerSearchParameters;
+
+            return FindAndOpen(viewModel);
         }
 
         public IActionResult Details(int id)

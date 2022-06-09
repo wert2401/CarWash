@@ -1,10 +1,12 @@
-﻿@model IEnumerable<CarWash.Database.Models.Customer>
+﻿@model CarWash.MVC.ViewModels.CustomerIndexViewModel
 
 @{
     ViewData["Title"] = "Customers";
 }
 
 <h1>Customers</h1>
+
+<partial name="../Customers/IndexSearch" model="@Model.SearchParameters"/>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,31 +15,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CustomerId)
+                @Html.DisplayNameFor(model => model.Entity.CustomerId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.Entity.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.Entity.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Patronymic)
+                @Html.DisplayNameFor(model => model.Entity.Patronymic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Entity.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sex)
+                @Html.DisplayNameFor(model => model.Entity.Sex)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsSendNotify)
+                @Html.DisplayNameFor(model => model.Entity.IsSendNotify)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in @Model.Entities)
         {
             <tr>
                 <td>
