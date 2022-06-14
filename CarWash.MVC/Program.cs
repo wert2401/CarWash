@@ -3,6 +3,7 @@ using CarWash.Database.Models;
 using CarWash.Database.Repositories;
 using CarWash.Database.Repositories.Holders;
 using CarWash.Database.Repositories.Interfaces;
+using CarWash.MVC.Services.ImageService;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarWash.MVC
@@ -19,6 +20,7 @@ namespace CarWash.MVC
             builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DevelopmentConnection"), b => b.MigrationsAssembly("CarWash.MVC")));
 
             builder.Services.AddScoped<IRepositoriesHolder, RepositoriesHolder>();
+            builder.Services.AddScoped<IImageService, ImageService>();
 
             var app = builder.Build();
 

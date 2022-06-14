@@ -12,7 +12,7 @@ namespace CarWash.Database.Models
         public string? Email { get; set; }
         public bool Sex { get; set; }
         public bool IsSendNotify { get; set; }
-        public ICollection<CustomerCar> CustomerCars { get; set; }
+        public ICollection<CustomerCar>? CustomerCars { get; set; }
 
         [NotMapped]
         public int Id { get => CustomerId; }

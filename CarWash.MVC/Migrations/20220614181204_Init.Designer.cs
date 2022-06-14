@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarWash.MVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220608171414_Init")]
+    [Migration("20220614181204_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,6 +115,17 @@ namespace CarWash.MVC.Migrations
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerId = 1,
+                            Email = "sdf@gmail.com",
+                            FirstName = "Ivan",
+                            IsSendNotify = false,
+                            LastName = "Ivanov",
+                            Sex = false
+                        });
                 });
 
             modelBuilder.Entity("CarWash.Database.Models.CustomerCar", b =>
@@ -146,6 +157,17 @@ namespace CarWash.MVC.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("CustomerCars");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerCarId = 1,
+                            CarId = 1,
+                            CustomerId = 1,
+                            Image = "images/customercars/c5b886b2-e8d5-4eec-b9a8-3f99f992f70f.jpg",
+                            Number = "nums",
+                            Year = 2010
+                        });
                 });
 
             modelBuilder.Entity("CarWash.Database.Models.Employee", b =>
@@ -171,6 +193,14 @@ namespace CarWash.MVC.Migrations
                     b.HasKey("EmployeeId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            EmployeeId = 1,
+                            FirstName = "Vanya",
+                            LastName = "Vanyov"
+                        });
                 });
 
             modelBuilder.Entity("CarWash.Database.Models.Order", b =>
@@ -206,6 +236,28 @@ namespace CarWash.MVC.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            CustomerCarId = 1,
+                            EmployeeId = 1,
+                            EndDate = new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(31),
+                            ServiceId = 1,
+                            StartDate = new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(16),
+                            Status = 0
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            CustomerCarId = 1,
+                            EmployeeId = 1,
+                            EndDate = new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38),
+                            ServiceId = 2,
+                            StartDate = new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38),
+                            Status = 0
+                        });
                 });
 
             modelBuilder.Entity("CarWash.Database.Models.Service", b =>

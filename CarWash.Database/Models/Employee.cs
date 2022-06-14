@@ -10,7 +10,7 @@ namespace CarWash.Database.Models
         public string LastName { get; set; }
         public string? Patronymic { get; set; }
         public string? Image { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Order>? Orders { get; set; }
 
         [NotMapped]
         public int Id { get => EmployeeId; }

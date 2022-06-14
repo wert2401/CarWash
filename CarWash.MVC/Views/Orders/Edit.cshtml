@@ -1,0 +1,59 @@
+﻿@model CarWash.MVC.ViewModels.OrderCreateViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Entity.ServiceId" class="control-label"></label>
+                <select asp-for="Entity.ServiceId" asp-items="@Model.ServicesSelectList" class="form-control"></select>
+                <span asp-validation-for="ServicesSelectList" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.CustomerCarId" class="control-label"></label>
+                <select asp-for="Entity.CustomerCarId" asp-items="@Model.CustomerCarsSelectList" class="form-control"></select>
+                <span asp-validation-for="CustomerCarsSelectList" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.EmployeeId" class="control-label"></label>
+                <select asp-for="Entity.EmployeeId" asp-items="@Model.EmployeesSelectList" class="form-control"></select>
+                <span asp-validation-for="EmployeesSelectList" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.Status" class="control-label"></label>
+                <input asp-for="Entity.Status" class="form-control" />
+                <span asp-validation-for="Entity.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.StartDate" class="control-label"></label>
+                <input asp-for="Entity.StartDate" class="form-control" />
+                <span asp-validation-for="Entity.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.EndDate" class="control-label"></label>
+                <input asp-for="Entity.EndDate" class="form-control" />
+                <span asp-validation-for="Entity.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -7,7 +7,7 @@ namespace CarWash.Database.Models
     {
         public int ServiceCategoryId { get; set; }
         public string Name { get; set; }
-        public ICollection<Service> Services { get; set; }
+        public ICollection<Service>? Services { get; set; }
 
         [NotMapped]
         public int Id { get => ServiceCategoryId; }

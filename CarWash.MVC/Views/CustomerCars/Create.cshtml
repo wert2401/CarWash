@@ -1,0 +1,55 @@
+﻿@model CarWash.MVC.ViewModels.CustomerCarViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>CustomerCar</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CarsSelectItems" class="control-label"></label>
+                <select asp-for="Entity.CarId" class="form-control" asp-items="@Model.CarsSelectItems">
+                </select>
+                <span asp-validation-for="CarsSelectItems" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomersSelectItems" class="control-label"></label>
+                <select asp-for="Entity.CustomerId" class="form-control" asp-items="@Model.CustomersSelectItems">
+                </select>
+                <span asp-validation-for="CustomersSelectItems" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.Year" class="control-label"></label>
+                <input asp-for="Entity.Year" class="form-control" />
+                <span asp-validation-for="Entity.Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Entity.Number" class="control-label"></label>
+                <input asp-for="Entity.Number" class="form-control" />
+                <span asp-validation-for="Entity.Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

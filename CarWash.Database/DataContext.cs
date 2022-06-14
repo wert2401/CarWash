@@ -13,7 +13,7 @@ namespace CarWash.Database
 
             modelBuilder.Entity<Car>().Navigation(c => c.Brand).AutoInclude();
 
-            //modelBuilder.Entity<Customer>().Navigation(c => c.CustomerCars).AutoInclude();
+            modelBuilder.Entity<Customer>().Navigation(c => c.CustomerCars).AutoInclude();
 
             modelBuilder.Entity<CustomerCar>().Navigation(c => c.Car).AutoInclude();
             modelBuilder.Entity<CustomerCar>().Navigation(c => c.Customer).AutoInclude();
@@ -21,12 +21,8 @@ namespace CarWash.Database
 
             modelBuilder.Entity<Employee>().Navigation(e => e.Orders).AutoInclude();
 
-            modelBuilder.Entity<Order>().Navigation(o => o.Service).AutoInclude();
-            modelBuilder.Entity<Order>().Navigation(o => o.CustomerCar).AutoInclude();
-            modelBuilder.Entity<Order>().Navigation(o => o.Employee).AutoInclude();
-
             modelBuilder.Entity<Service>().Navigation(s => s.ServiceCategory).AutoInclude();
-            //modelBuilder.Entity<Service>().Navigation(s => s.Orders).AutoInclude();
+            modelBuilder.Entity<Service>().Navigation(s => s.Orders).AutoInclude();
 
             modelBuilder.Entity<ServiceCategory>().Navigation(s => s.Services).AutoInclude();
 
@@ -46,6 +42,19 @@ namespace CarWash.Database
             modelBuilder.Entity<Service>().HasData(
                 new Service { ServiceId = 1, ServiceCategoryId = 1, Name = "Clean dirt" },
                 new Service { ServiceId = 2, ServiceCategoryId = 2, Name = "Wash dirt" });
+
+            modelBuilder.Entity<Customer>().HasData(
+                new Customer { CustomerId = 1, FirstName = "Ivan", LastName = "Ivanov", Email = "sdf@gmail.com", Sex = false, IsSendNotify = false });
+
+            modelBuilder.Entity<CustomerCar>().HasData(
+                new CustomerCar { CustomerCarId = 1, Number = "nums", Year = 2010, CarId = 1, CustomerId = 1, Image= "images/customercars/c5b886b2-e8d5-4eec-b9a8-3f99f992f70f.jpg" });
+
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee { EmployeeId = 1, FirstName = "Vanya", LastName = "Vanyov" });
+
+            modelBuilder.Entity<Order>().HasData(
+                new Order { OrderId = 1, CustomerCarId = 1, EmployeeId = 1, ServiceId = 1, Status = 0, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(5) },
+                new Order { OrderId = 2, CustomerCarId = 1, EmployeeId = 1, ServiceId = 2, Status = 0, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(5) });
         }
 
         public DbSet<Brand> Brands { get; set; }

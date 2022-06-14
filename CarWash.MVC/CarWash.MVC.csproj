@@ -21,4 +21,10 @@
     <ProjectReference Include="..\CarWash.Database\CarWash.Database.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="db\" />
+    <Folder Include="wwwroot\images\customercars\" />
+    <Folder Include="wwwroot\images\employees\" />
+  </ItemGroup>
+
 </Project>

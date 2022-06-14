@@ -11,7 +11,7 @@ namespace CarWash.Database.Models
         public int Price { get; set; }
         public int ServiceCategoryId { get; set; }
         public ServiceCategory ServiceCategory { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Order>? Orders { get; set; }
 
 
         [NotMapped]

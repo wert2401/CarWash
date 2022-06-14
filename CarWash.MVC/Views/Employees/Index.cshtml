@@ -1,0 +1,65 @@
+﻿@model CarWash.MVC.ViewModels.EmployeeIndexViewModel
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<h1>Employees</h1>
+
+<partial name="./IndexSearch" model="@Model.SearchParameters"/>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Entity.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entity.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entity.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entity.Patronymic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entity.Image)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Entities)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patronymic)
+                </td>
+                <td>
+                    @if (item.Image != null)
+                    {
+                        <img src="~/@item.Image" width="100" height="100" />
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

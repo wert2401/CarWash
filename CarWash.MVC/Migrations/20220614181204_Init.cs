@@ -187,6 +187,16 @@ namespace CarWash.MVC.Migrations
                 values: new object[] { 2, "Lada" });
 
             migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "CustomerId", "Email", "FirstName", "IsSendNotify", "LastName", "Patronymic", "Sex" },
+                values: new object[] { 1, "sdf@gmail.com", "Ivan", false, "Ivanov", null, false });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "EmployeeId", "FirstName", "Image", "LastName", "Patronymic" },
+                values: new object[] { 1, "Vanya", null, "Vanyov", null });
+
+            migrationBuilder.InsertData(
                 table: "ServiceCategories",
                 columns: new[] { "ServiceCategoryId", "Name" },
                 values: new object[] { 1, "Clean" });
@@ -220,6 +230,21 @@ namespace CarWash.MVC.Migrations
                 table: "Services",
                 columns: new[] { "ServiceId", "Duration", "Name", "Price", "ServiceCategoryId" },
                 values: new object[] { 2, 0, "Wash dirt", 0, 2 });
+
+            migrationBuilder.InsertData(
+                table: "CustomerCars",
+                columns: new[] { "CustomerCarId", "CarId", "CustomerId", "Image", "Number", "Year" },
+                values: new object[] { 1, 1, 1, "images/customercars/c5b886b2-e8d5-4eec-b9a8-3f99f992f70f.jpg", "nums", 2010 });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "OrderId", "CustomerCarId", "EmployeeId", "EndDate", "ServiceId", "StartDate", "Status" },
+                values: new object[] { 1, 1, 1, new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(31), 1, new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(16), 0 });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "OrderId", "CustomerCarId", "EmployeeId", "EndDate", "ServiceId", "StartDate", "Status" },
+                values: new object[] { 2, 1, 1, new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38), 2, new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_BrandId",
