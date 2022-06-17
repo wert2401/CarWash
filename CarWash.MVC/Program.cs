@@ -5,6 +5,7 @@ using CarWash.Database.Repositories.Holders;
 using CarWash.Database.Repositories.Interfaces;
 using CarWash.MVC.Services.ImageService;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace CarWash.MVC
 {
@@ -13,14 +14,28 @@ namespace CarWash.MVC
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
-            builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DevelopmentConnection"), b => b.MigrationsAssembly("CarWash.MVC")));
+            builder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlite(builder.Configuration.GetConnectionString("DevelopmentConnection"), options =>
+                {
+                    options.MigrationsAssembly("CarWash.MVC");
+                    options.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+                });
+            });
 
             builder.Services.AddScoped<IRepositoriesHolder, RepositoriesHolder>();
             builder.Services.AddScoped<IImageService, ImageService>();
+
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -30,6 +45,11 @@ namespace CarWash.MVC
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+            else
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();

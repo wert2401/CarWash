@@ -239,12 +239,12 @@ namespace CarWash.MVC.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "OrderId", "CustomerCarId", "EmployeeId", "EndDate", "ServiceId", "StartDate", "Status" },
-                values: new object[] { 1, 1, 1, new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(31), 1, new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(16), 0 });
+                values: new object[] { 1, 1, 1, new DateTime(2022, 6, 22, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(986), 1, new DateTime(2022, 6, 17, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(978), 0 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "OrderId", "CustomerCarId", "EmployeeId", "EndDate", "ServiceId", "StartDate", "Status" },
-                values: new object[] { 2, 1, 1, new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38), 2, new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38), 0 });
+                values: new object[] { 2, 1, 1, new DateTime(2022, 6, 22, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(995), 2, new DateTime(2022, 6, 17, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(995), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_BrandId",

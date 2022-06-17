@@ -28,6 +28,9 @@
                 @Html.DisplayNameFor(model => model.Entity.Status)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Entity.Service.Price)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Entity.StartDate)
             </th>
             <th>
@@ -53,6 +56,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)

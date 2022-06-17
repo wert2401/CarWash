@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarWash.MVC", "CarWash.MVC\CarWash.MVC.csproj", "{86AE2080-AE44-4741-88BE-2E54B42D86F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarWash.MVC", "CarWash.MVC\CarWash.MVC.csproj", "{86AE2080-AE44-4741-88BE-2E54B42D86F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarWash.Database", "CarWash.Database\CarWash.Database.csproj", "{638D7F50-CC59-4B04-AB77-6600ABCB9F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarWash.Database", "CarWash.Database\CarWash.Database.csproj", "{638D7F50-CC59-4B04-AB77-6600ABCB9F84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasrWash.Tests", "CasrWash.Tests\CasrWash.Tests.csproj", "{22A30881-18F8-4E35-9805-03EC16DCC520}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{638D7F50-CC59-4B04-AB77-6600ABCB9F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{638D7F50-CC59-4B04-AB77-6600ABCB9F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{638D7F50-CC59-4B04-AB77-6600ABCB9F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22A30881-18F8-4E35-9805-03EC16DCC520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A30881-18F8-4E35-9805-03EC16DCC520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A30881-18F8-4E35-9805-03EC16DCC520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A30881-18F8-4E35-9805-03EC16DCC520}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

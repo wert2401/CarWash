@@ -1,4 +1,5 @@
 ﻿using CarWash.Database.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarWash.Database.Repositories
 {

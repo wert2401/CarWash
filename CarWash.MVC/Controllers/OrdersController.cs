@@ -13,11 +13,14 @@ namespace CarWash.MVC.Controllers
         private readonly ICollection<Service> services;
         private readonly ICollection<CustomerCar> customerCars;
         private readonly ICollection<Employee> employees;
-        public OrdersController(IRepositoriesHolder repositoriesHolder) : base(repositoriesHolder.OrderRepository)
+        private readonly ILogger logger;
+
+        public OrdersController(IRepositoriesHolder repositoriesHolder, ILogger<OrdersController> logger) : base(repositoriesHolder.OrderRepository)
         {
             services = repositoriesHolder.ServiceRepository.GetAll();
             customerCars = repositoriesHolder.CustomerCarRepository.GetAll();
             employees = repositoriesHolder.EmployeeRepository.GetAll();
+            this.logger = logger;
         }
 
         public IActionResult Index()
@@ -56,6 +59,13 @@ namespace CarWash.MVC.Controllers
         public IActionResult Create(OrderCreateViewModel orderCreateViewModel)
         {
             Order orderToAdd = orderCreateViewModel.Entity;
+
+            orderToAdd.CustomerCar = customerCars.Where(x => x.CustomerCarId == orderToAdd.CustomerCarId).First();
+
+            if (orderToAdd.CustomerCar.Customer.IsSendNotify == true)
+            {
+                logger.LogInformation($"Order for {orderToAdd.CustomerCar.Customer.FirstName} {orderToAdd.CustomerCar.Customer.LastName} created");
+            }
 
             return AddAndRedirectToAction(orderToAdd, RedirectToAction("Index"));
         }

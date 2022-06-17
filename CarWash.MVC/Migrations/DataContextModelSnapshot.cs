@@ -241,9 +241,9 @@ namespace CarWash.MVC.Migrations
                             OrderId = 1,
                             CustomerCarId = 1,
                             EmployeeId = 1,
-                            EndDate = new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(31),
+                            EndDate = new DateTime(2022, 6, 22, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(986),
                             ServiceId = 1,
-                            StartDate = new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(16),
+                            StartDate = new DateTime(2022, 6, 17, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(978),
                             Status = 0
                         },
                         new
@@ -251,9 +251,9 @@ namespace CarWash.MVC.Migrations
                             OrderId = 2,
                             CustomerCarId = 1,
                             EmployeeId = 1,
-                            EndDate = new DateTime(2022, 6, 20, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38),
+                            EndDate = new DateTime(2022, 6, 22, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(995),
                             ServiceId = 2,
-                            StartDate = new DateTime(2022, 6, 15, 1, 12, 3, 976, DateTimeKind.Local).AddTicks(38),
+                            StartDate = new DateTime(2022, 6, 17, 20, 19, 4, 86, DateTimeKind.Local).AddTicks(995),
                             Status = 0
                         });
                 });

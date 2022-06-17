@@ -24,7 +24,7 @@ namespace CarWash.Database.Repositories.Holders
             ServiceRepository = new ServiceRepository(dataContext);
             ServiceCategoryRepository = new ServiceCategoryRepository(dataContext);
         }
-        public IRepository<Brand> BrandRepository { get; private set; }
+        public virtual IRepository<Brand> BrandRepository { get; private set; }
 
         public IRepository<Car> CarRepository { get; private set; }
 

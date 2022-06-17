@@ -11,17 +11,13 @@ namespace CarWash.Database
         {
             modelBuilder.Entity<Brand>().Navigation(b => b.Cars).AutoInclude();
 
-            modelBuilder.Entity<Car>().Navigation(c => c.Brand).AutoInclude();
-
             modelBuilder.Entity<Customer>().Navigation(c => c.CustomerCars).AutoInclude();
 
             modelBuilder.Entity<CustomerCar>().Navigation(c => c.Car).AutoInclude();
-            modelBuilder.Entity<CustomerCar>().Navigation(c => c.Customer).AutoInclude();
             modelBuilder.Entity<CustomerCar>().Navigation(c => c.Orders).AutoInclude();
 
             modelBuilder.Entity<Employee>().Navigation(e => e.Orders).AutoInclude();
 
-            modelBuilder.Entity<Service>().Navigation(s => s.ServiceCategory).AutoInclude();
             modelBuilder.Entity<Service>().Navigation(s => s.Orders).AutoInclude();
 
             modelBuilder.Entity<ServiceCategory>().Navigation(s => s.Services).AutoInclude();
@@ -57,7 +53,7 @@ namespace CarWash.Database
                 new Order { OrderId = 2, CustomerCarId = 1, EmployeeId = 1, ServiceId = 2, Status = 0, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(5) });
         }
 
-        public DbSet<Brand> Brands { get; set; }
+        public virtual DbSet<Brand> Brands { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerCar> CustomerCars { get; set; }
